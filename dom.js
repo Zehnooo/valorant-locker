@@ -3,6 +3,7 @@
         document.body.classList.add('loaded');
         const main = document.querySelector('main');
         createDefaultPage(main);
+        createFooter(main);
     }
 })();
 
@@ -13,13 +14,38 @@ function createDefaultPage(main){
     heading.textContent =  'Hello, and Welcome to ';
     const span = document.createElement('span');
     span.textContent = 'Valorant Locker';
+    span.classList.add('italic');
     heading.appendChild(span);
     heading.classList.add('head');
     const description = document.createElement('p');
     description.textContent = 'This was created by Zehno as a passion project.\n I hope you enjoy, and if you use this for ranked - I hope you gain unlimited RR!';
-
+    description.classList.add('text');
     container.append(heading, description);
     main.append(container);
+}
+
+function createFooter(){
+    const footer = document.createElement('footer');
+    const container = document.createElement('div');
+
+    const disclaimer = document.createElement('h3');
+    disclaimer.classList.add('head', 'italic');
+    disclaimer.textContent = 'This site is fan-made and not affiliated with Riot Games or Valorant in any way.';
+
+
+    const githubLink = document.createElement('a');
+    githubLink.href = 'https://github.com/Zehnooo/valorant-api-testing';
+    githubLink.target = '_blank';
+    const imgContainer = document.createElement('figure');
+    const githubImg = document.createElement('img');
+    githubImg.src = './assets/images/github.svg';
+    imgContainer.append(githubImg);
+    imgContainer.id = 'github-fig';
+    githubLink.appendChild(imgContainer);
+
+    container.append(disclaimer, githubLink);
+    footer.append(container);
+    document.body.appendChild(footer);
 }
 
 /*
@@ -32,10 +58,7 @@ const options = document.createElement('div');
 
 
     const gitContainer = document.createElement('div');
-    const githubLink = document.createElement('a');
-    githubLink.href = 'https://github.com/Zehnooo/valorant-api-testing';
-    githubLink.target = '_blank';
-    githubLink.textContent = 'This Repo';
+
     const githubImg = document.createElement('img');
     githubImg.src = './assets/images/github.svg';
     gitContainer.append(githubImg, githubLink)

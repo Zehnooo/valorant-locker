@@ -65,6 +65,7 @@ body {
 
 body.loaded {
     opacity: 1;
+    overflow: hidden;
 }
 
 :root {
@@ -76,15 +77,26 @@ body.loaded {
     --headsize: 24px;
     --bodysize: 18px;
 }
+
 nav {
     background: var(--grey);
-    padding: 1rem;
     display: flex;
     justify-content: space-evenly;
     text-align: center;
     align-items: center;
     width: 100%;
+    height: auto;
+    overflow: hidden;
+}
 
+footer {
+    background: var(--grey);
+    display: flex;
+    width: 100%;
+}
+
+nav > * {
+    padding: 1rem;
 }
 
 nav h1 {
@@ -102,22 +114,38 @@ nav ul {
     align-items: center;
     width: 50%;
     list-style: none;
-
-}
-
-nav ul > * {
-    font-size: var(--bodysize);
 }
 
 main {
     max-width: 1300px;
     width: 100%;
-    margin: 0 auto;
+    margin: 2rem 0;
+    height: auto;
+    background: var(--grey);
+    padding: 2rem;
 }
 
-a {
+nav a {
     text-decoration: none;
     color: var(--gold);
+}
+
+footer div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    margin: 0 auto;
+    color: var(--red);
+}
+
+#github-fig {
+    max-width: 100px;
+}
+
+#github-fig img {
+    width: 100%;
 }
 
 .head {
@@ -125,3 +153,12 @@ a {
     font-family: 'OswaldBold', "Arial Narrow", sans-serif;
 }
 
+.text {
+    font-size: var(--bodysize);
+    font-family: 'OswaldRegular', "Arial Narrow", sans-serif;
+}
+
+.italic {
+    font-style: italic;
+    color: var(--gold);
+}

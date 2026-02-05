@@ -34,6 +34,20 @@ summary{display:list-item}
 template{display:none}
 [hidden]{display:none}
 
+@font-face {
+    font-family: 'OswaldBold';
+    src: url('./assets/fonts/Oswald-Bold.ttf');
+}
+@font-face {
+    font-family: 'OswaldLight';
+    src: url('./assets/fonts/Oswald-Light.ttf');
+}
+@font-face {
+    font-family: 'OswaldRegular';
+    src: url('./assets/fonts/Oswald-Regular.ttf');
+}
+
+
 html, body {
     width: 100%;
     height: 100%;

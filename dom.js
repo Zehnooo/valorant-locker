@@ -21,8 +21,13 @@ function createDefaultPage(main){
     heading.appendChild(span);
     heading.classList.add('head');
     const description = document.createElement('p');
-    description.textContent = 'This was created by Zehno as a passion project.\n I hope you enjoy, and if you use this for ranked - COMPUTER. GIVE THIS PLAYER UNLIMITED RR GAIN. YOU HAVE BEEN PROGRAMMED.';
+    description.textContent = 'This was created by Zehno as a passion project.\n I hope you enjoy, and if you use this for ranked...';
+    const descriptionSpan = document.createElement('span');
+    descriptionSpan.textContent = ' COMPUTER. GIVE THIS PLAYER UNLIMITED RR GAIN. YOU HAVE BEEN PROGRAMMED.';
+    descriptionSpan.classList.add('code');
     description.classList.add('text');
+    description.appendChild(descriptionSpan);
+
     container.append(heading, description);
     main.append(container);
 }

@@ -74,6 +74,7 @@ body.loaded {
     --red: rgba(237, 27, 36, 1);
     --gold: rgba(250, 218, 94, 1);
     --light: rgba(240, 248, 255, 1);
+    --green: rgba(0,105,62,1);
     --headsize: 24px;
     --bodysize: 18px;
 }
@@ -167,15 +168,20 @@ footer div h3 {
 
 .head {
     font-size: var(--headsize);
-    font-family: 'OswaldBold', "Arial Narrow", sans-serif;
+    font-family: "OswaldBold", "Arial Narrow", sans-serif;
 }
 
 .text {
     font-size: var(--bodysize);
-    font-family: 'OswaldRegular', "Arial Narrow", sans-serif;
+    font-family: "OswaldRegular", "Arial Narrow", sans-serif;
 }
 
 .italic {
     font-style: italic;
     color: var(--gold);
+}
+
+.code {
+    color: var(--green);
+    font-family: "OswaldLight", "Arial Narrow", sans-serif;
 }

@@ -14,7 +14,7 @@ function createDefaultPage(main){
     const span = document.createElement('span');
     span.textContent = 'Valorant Locker';
     heading.appendChild(span);
-
+    heading.classList.add('head');
     const description = document.createElement('p');
     description.textContent = 'This was created by Zehno as a passion project.\n I hope you enjoy, and if you use this for ranked - I hope you gain unlimited RR!';
 

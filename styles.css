@@ -42,62 +42,16 @@ html, body {
     margin: 0 auto;
 }
 
+:root {
+    --black(rgba(17, 17, 17, 1));
+    --red(rgba(237, 27, 36, 1));
+    --gold(rgba(250, 218, 94, 1));
+    --light(rgba(240, 248, 255, 1));
+}
+
 main {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
-    max-width: 1440px;
-    height: 100%;
-    gap: 2rem;
-    padding: 2rem;
+
 }
 
-.agent-card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    border: 2px solid black;
-    border-radius: 12px;
-    background: #ccc;
-    margin: 0 auto;
-}
 
-.card-heading {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: auto;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.card-heading figure, .ability-slot figure {
-    width: 50px;
-    height: auto;
-}
-
-.card-heading figure img, .ability-slot figure img {
-    width: 100%;
-    height: 100%;
-}
-
-.agent-abilities {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-}
-
-.agent-abilities > * {
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-    height: 100%;
-    text-align: left;
-    align-items: center;
-    justify-content: center;
-}
 

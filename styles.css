@@ -117,12 +117,17 @@ nav ul {
 }
 
 main {
-    max-width: 1300px;
+    max-width: 1440px;
     width: 100%;
-    margin: 2rem 0;
+    margin: 2rem auto;
     height: auto;
     background: var(--grey);
     padding: 2rem;
+    border-radius: 12px;
+}
+
+#default {
+    width: 100%;
 }
 
 nav a {
@@ -133,11 +138,23 @@ nav a {
 footer div {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    text-align: left;
+    text-align: center;
     margin: 0 auto;
     color: var(--red);
+}
+
+footer div a {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer div h3 {
+    width: 75%;
+
 }
 
 #github-fig {

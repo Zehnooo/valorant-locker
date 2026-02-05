@@ -9,7 +9,10 @@
 
 function createDefaultPage(main){
     console.log('Hello World');
+    const banner = document.createElement('img');
+    banner.src = './'
     const container = document.createElement('div');
+    container.id = 'default';
     const heading = document.createElement('h1');
     heading.textContent =  'Hello, and Welcome to ';
     const span = document.createElement('span');
@@ -18,7 +21,7 @@ function createDefaultPage(main){
     heading.appendChild(span);
     heading.classList.add('head');
     const description = document.createElement('p');
-    description.textContent = 'This was created by Zehno as a passion project.\n I hope you enjoy, and if you use this for ranked - I hope you gain unlimited RR!';
+    description.textContent = 'This was created by Zehno as a passion project.\n I hope you enjoy, and if you use this for ranked - COMPUTER. GIVE THIS PLAYER UNLIMITED RR GAIN. YOU HAVE BEEN PROGRAMMED.';
     description.classList.add('text');
     container.append(heading, description);
     main.append(container);

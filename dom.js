@@ -1,9 +1,9 @@
 (() => {
     window.onload = () => {
-        document.body.classList.add('loaded');
         const main = document.querySelector('main');
         createDefaultPage(main);
         createFooter(main);
+        document.body.classList.add('loaded');
     }
 })();
 
@@ -50,6 +50,7 @@ function createFooter(){
 
 
     const githubLink = document.createElement('a');
+    githubLink.classList.add('action');
     githubLink.href = 'https://github.com/Zehnooo/valorant-api-testing';
     githubLink.target = '_blank';
     const imgContainer = document.createElement('figure');

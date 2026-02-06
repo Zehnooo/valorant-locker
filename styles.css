@@ -52,6 +52,7 @@ html, body {
     width: 100%;
     height: 100%;
     margin: 0 auto;
+    cursor: url('./assets/images/cursor_ping_normal.png'), auto;
 }
 
 body {
@@ -60,12 +61,12 @@ body {
     background: var(--black);
     color: var(--light);
     font-size: 18px;
-
 }
 
 body.loaded {
     opacity: 1;
     overflow: hidden;
+    transition: cursor ease 0.04s;
 }
 
 :root {
@@ -114,12 +115,13 @@ nav ul {
     text-align: center;
     align-items: center;
     width: 50%;
+    height: 100%;
     list-style: none;
 }
 
 main {
     max-width: 1440px;
-    width: 100%;
+    width: 90%;
     margin: 2rem auto;
     height: auto;
     background: var(--grey);
@@ -129,6 +131,19 @@ main {
 
 #default {
     width: 100%;
+}
+
+#banner {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+#banner video {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
 }
 
 nav a {
@@ -183,5 +198,15 @@ footer div h3 {
 
 .code {
     color: var(--green);
+}
 
+.action {
+    display: inline-block;
+    transition: transform ease-in-out 0.08s;
+    cursor: url('assets/images/cursor_ping_action.png'), auto;
+}
+
+.action:active {
+    transform: translateY(3px);
+    color: var(--red);
 }

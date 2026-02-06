@@ -9,8 +9,16 @@
 
 function createDefaultPage(main){
     console.log('Hello World');
-    const banner = document.createElement('img');
-    banner.src = './'
+
+    const bannerContainer = document.createElement('div');
+    bannerContainer.id = 'banner'
+    const banner = document.createElement('video');
+    banner.src = './assets/images/home-banner.mp4';
+    banner.autoplay = true;
+    banner.muted = true;
+    banner.loop = true;
+    bannerContainer.append(banner);
+
     const container = document.createElement('div');
     container.id = 'default';
     const heading = document.createElement('h1');
@@ -28,7 +36,7 @@ function createDefaultPage(main){
     description.classList.add('text');
     description.appendChild(descriptionSpan);
 
-    container.append(heading, description);
+    container.append(bannerContainer, heading, description);
     main.append(container);
 }
 

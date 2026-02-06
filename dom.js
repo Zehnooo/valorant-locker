@@ -122,7 +122,7 @@ function updateMain(page, activePage){
                 createDefaultPage(main);
                 break;
             case 'agentselect':
-
+                getAgents().then();
                 break;
             default:
                 showPageError(main);
@@ -140,13 +140,13 @@ function showPageError(main) {
         </div>
     `;
 }
-
 function buildAgentSelect(main){
     const filterContainer = document.createElement('div');
     const filters = document.createElement('div');
     filters.id = 'filters';
 }
-
 async function getAgents(){
     return await cleanAgentData();
+
 }
+

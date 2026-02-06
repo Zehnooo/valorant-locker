@@ -128,8 +128,14 @@ main {
     border-radius: 12px;
 }
 
-#default {
+#home {
     width: 100%;
+}
+
+#home p {
+    width: 50%;
+    text-wrap: pretty;
+    line-height: 1.5;
 }
 
 #banner {

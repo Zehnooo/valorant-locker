@@ -23,7 +23,7 @@ function createDefaultPage(main){
     bannerContainer.append(banner);
 
     const container = document.createElement('div');
-    container.id = 'default';
+    container.id = 'home';
     const heading = document.createElement('h1');
     heading.textContent =  'Hello, and Welcome to ';
     const span = document.createElement('span');
@@ -32,9 +32,9 @@ function createDefaultPage(main){
     heading.appendChild(span);
     heading.classList.add('head');
     const description = document.createElement('p');
-    description.textContent = 'This was created by Zehno as a passion project.\n I hope you enjoy, and if you use this for ranked...';
+    description.textContent = 'This was created by Zehno as a passion project.\n I hope you enjoy! Oh, and just in case you use this for your next ranked matches...';
     const descriptionSpan = document.createElement('span');
-    descriptionSpan.textContent = ' COMPUTER. GIVE THIS PLAYER UNLIMITED RR GAIN. YOU HAVE BEEN PROGRAMMED.';
+    descriptionSpan.textContent = ' COMPUTER. GIVE THIS PLAYER UNLIMITED RR GAIN. YOU HAVE BEEN PROGRAMMED..';
     descriptionSpan.classList.add('code');
     description.classList.add('text');
     description.appendChild(descriptionSpan);
@@ -74,30 +74,30 @@ function createFooter(){
 
 function updateNavLinks(){
     const navLinks = getElements('.nav-link', 'all');
+    let activePage = 'home';
+
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             updateClasses(navLinks, ['active'], 'remove');
             link.classList.add('active');
-            clearMain();
-            updateMain(link.textContent);
+            updateMain(link.textContent, activePage);
+            activePage = link.textContent.toLowerCase();
         });
     });
 }
 
-function updateClasses(elements, classes, type){
-    elements.forEach(element => {
-        classes.forEach(cl => {
-            element.classList[type](cl);
-        });
+function updateClasses(elements = [], classes, type){
+    elements.length === 1 ? classes.forEach(cl => { elements.classList[type](cl)}) :
+        elements.forEach(element => { classes.forEach(cl => { element.classList[type](cl); });
     });
 }
 
 function getElements(selector, selectType){
     switch(selectType){
         case 'all':
-            return document.querySelectorAll(String(selector));
+            return document.querySelectorAll(selector);
         case 'single':
-            return document.querySelector(String(selector));
+            return document.querySelector(selector);
     }
 }
 
@@ -106,17 +106,24 @@ function clearMain(){
     main.textContent = '';
 }
 
-function updateMain(page){
+function updateMain(page, activePage){
+
     const main = getElements('main', 'single');
     page = String(page).toLowerCase();
-    switch(page){
-        case 'home':
-            createDefaultPage(main);
-            break;
-        default:
-            showPageError(main);
-            break;
+    if (page === activePage){
+        console.log(`Page: ${page.toUpperCase()} is already active. Not switching page.`)
+        return;
     }
+        clearMain();
+        switch(page){
+            case 'home':
+                createDefaultPage(main);
+                break;
+            default:
+                showPageError(main);
+                break;
+        }
+
 }
 
 function showPageError(main) {

@@ -78,6 +78,8 @@ function updateNavLinks(){
         link.addEventListener('click', () => {
             updateClasses(navLinks, ['active'], 'remove');
             link.classList.add('active');
+            clearMain();
+            updateMain(link.textContent);
         });
     });
 }
@@ -97,4 +99,32 @@ function getElements(selector, selectType){
         case 'single':
             return document.querySelector(String(selector));
     }
+}
+
+function clearMain(){
+    const main = getElements('main', 'single');
+    main.textContent = '';
+}
+
+function updateMain(page){
+    const main = getElements('main', 'single');
+    page = String(page).toLowerCase();
+    switch(page){
+        case 'home':
+            createDefaultPage(main);
+            break;
+        default:
+            showPageError(main);
+            break;
+    }
+}
+
+function showPageError(main) {
+    main.innerHTML = `
+        <div style="text-align:center; padding:40px;">
+            <h1 class="head">404</h1>
+            <p class="text">Well… this is awkward.</p>
+            <p class="text">Unable to load the requested page. Please contact the site administrator if the issue persits.</p>
+        </div>
+    `;
 }

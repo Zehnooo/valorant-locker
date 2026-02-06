@@ -210,7 +210,6 @@ footer div h3 {
 }
 
 .nav-link:active {
-    transform: translateY(2px);
     color: var(--red);
 }
 
@@ -233,4 +232,8 @@ footer div h3 {
 
 .nav-link.active::after {
     transform: scaleX(1);
+}
+
+.nav-link.active {
+    color: var(--red); !important
 }

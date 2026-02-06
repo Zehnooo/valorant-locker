@@ -64,11 +64,12 @@ body {
     background: var(--black);
     color: var(--light);
     font-size: 18px;
+    padding-bottom: 80px;
 }
 
 body.loaded {
     opacity: 1;
-    overflow: hidden;
+    overflow-X: hidden;
 }
 
 :root {
@@ -91,12 +92,17 @@ nav {
     width: 100%;
     height: auto;
     overflow: hidden;
+    position: sticky;
+    top: 0;
 }
 
 footer {
     background: var(--grey);
     display: flex;
     width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 
 nav > * {
@@ -170,19 +176,24 @@ footer div {
 }
 
 footer div a {
-    width: 25%;
+    width: auto;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+footer div h3 {
+    width: 60%;
+    text-align: center;
     align-items: center;
     justify-content: center;
 }
 
-footer div h3 {
-    width: 75%;
-
-}
-
 #github-fig {
-    max-width: 100px;
+    max-width: 20%;
+    margin: 0 auto;
+    padding: 0;
 }
 
 #github-fig img {

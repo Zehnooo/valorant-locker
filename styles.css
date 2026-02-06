@@ -64,7 +64,7 @@ body {
     background: var(--black);
     color: var(--light);
     font-size: 18px;
-    padding-bottom: 80px;
+    padding-bottom: -80px;
 }
 
 body.loaded {
@@ -92,17 +92,14 @@ nav {
     width: 100%;
     height: auto;
     overflow: hidden;
-    position: sticky;
-    top: 0;
+
 }
 
 footer {
     background: var(--grey);
     display: flex;
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+
 }
 
 nav > * {
@@ -129,7 +126,7 @@ nav ul {
 
 main {
     max-width: 1440px;
-    width: 90%;
+    width: 100%;
     margin: 2rem auto;
     height: auto;
     background: none;
@@ -138,11 +135,12 @@ main {
 }
 
 #home {
-    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
 }
 
 #home p {
-    width: 50%;
     text-wrap: pretty;
     line-height: 1.5;
 }

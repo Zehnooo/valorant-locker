@@ -1,4 +1,5 @@
 import { cleanAgentData } from './valorantapi.js';
+import { filterAgents } from './tools.js';
 
 (() => {
     window.onload = () => {
@@ -26,6 +27,8 @@ function createDefaultPage(main){
 
     const container = document.createElement('div');
     container.id = 'home';
+
+    const greeting = document.createElement('div');
     const heading = document.createElement('h1');
     heading.textContent =  'Hello, and Welcome to ';
     const span = document.createElement('span');
@@ -40,8 +43,8 @@ function createDefaultPage(main){
     descriptionSpan.classList.add('code');
     description.classList.add('text');
     description.appendChild(descriptionSpan);
-
-    container.append(bannerContainer, heading, description);
+    greeting.append(heading, description);
+    container.append(greeting, bannerContainer);
     main.append(container);
 }
 
@@ -122,7 +125,7 @@ function updateMain(page, activePage){
                 createDefaultPage(main);
                 break;
             case 'agentselect':
-                getAgents().then();
+                getAgents().then(data => buildAgentSelect(main, data));
                 break;
             default:
                 showPageError(main);
@@ -140,13 +143,55 @@ function showPageError(main) {
         </div>
     `;
 }
-function buildAgentSelect(main){
-    const filterContainer = document.createElement('div');
-    const filters = document.createElement('div');
-    filters.id = 'filters';
+
+function buildAgentSelect(main, data){
+    const filteredAgents = filterAgents(data);
+    const filters = buildFilters(filteredAgents);
+
+
+
+    main.append(filters);
 }
 async function getAgents(){
     return await cleanAgentData();
-
 }
 
+function buildFilters(agents){
+    const filterContainer = document.createElement('div');
+    Object.keys(agents).forEach(role => {
+        const roleAgents = agents[role];
+        const roleContainer = document.createElement('div');
+        roleContainer.classList.add('role-container');
+        roleContainer.id = role.toLowerCase();
+
+        const heading = document.createElement('h2');
+        heading.textContent = role.toUpperCase();
+        heading.classList.add('head');
+
+
+        roleContainer.append(heading);
+        roleAgents.forEach(agent => {
+            roleContainer.append(buildAgentCard(agent, 'small'));
+        });
+        filterContainer.append(roleContainer);
+    });
+    filterContainer.id = 'filters';
+    return filterContainer;
+}
+
+function buildAgentCard(agent, size){
+    const card = document.createElement('div');
+    card.classList.add(`${size}`);
+
+    const imgContainer = document.createElement('figure');
+    const img = document.createElement('img');
+    img.src = agent.icon;
+    imgContainer.append(img);
+
+    const name = document.createElement('p');
+    name.textContent = agent.name;
+    name.classList.add('text');
+
+    card.append(imgContainer, name);
+    return card;
+}

@@ -47,6 +47,9 @@ template{display:none}
     src: url('./assets/fonts/Oswald-Regular.ttf');
 }
 
+*, html {
+    box-sizing: border-box;
+}
 
 html, body {
     width: 100%;

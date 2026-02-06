@@ -145,12 +145,15 @@ function showPageError(main) {
 }
 
 function buildAgentSelect(main, data){
+    const agentSelect = document.createElement('div');
+    agentSelect.id = 'agent-select';
+
     const filteredAgents = filterAgents(data);
     const filters = buildFilters(filteredAgents);
 
 
-
-    main.append(filters);
+    agentSelect.append(filters);
+    main.append(agentSelect);
 }
 async function getAgents(){
     return await cleanAgentData();
@@ -181,17 +184,13 @@ function buildFilters(agents){
 
 function buildAgentCard(agent, size){
     const card = document.createElement('div');
-    card.classList.add(`${size}`);
+    card.classList.add(`card-${size}`);
 
     const imgContainer = document.createElement('figure');
     const img = document.createElement('img');
     img.src = agent.icon;
     imgContainer.append(img);
 
-    const name = document.createElement('p');
-    name.textContent = agent.name;
-    name.classList.add('text');
-
-    card.append(imgContainer, name);
+    card.append(imgContainer);
     return card;
 }

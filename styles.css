@@ -254,3 +254,35 @@ footer div h3 {
 .nav-link.active {
     color: var(--red); !important
 }
+
+#agent-select #filters {
+    display: grid;
+    grid-template-rows: repeat(4, minmax(100px, 1fr));
+    place-items: center;
+}
+
+#agent-select .card-small {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 200px;
+}
+
+#agent-select .card-small figure {
+    max-width: 75px;
+    margin: 0;
+}
+
+#agent-select .card-small figure img {
+    width: 100%;
+    height: 100%;
+}
+
+#agent-select .role-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    text-align: left;
+    width: 100%;
+}

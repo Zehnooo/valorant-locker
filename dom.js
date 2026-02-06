@@ -16,6 +16,9 @@ function createDefaultPage(main){
     banner.autoplay = true;
     banner.muted = true;
     banner.loop = true;
+    banner.playsInline = true;
+    banner.setAttribute("playsinline", "");
+    banner.setAttribute("webkit-playsinline", "");
     bannerContainer.append(banner);
 
     const container = document.createElement('div');

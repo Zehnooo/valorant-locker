@@ -5,11 +5,21 @@ async function fetchData(apiLink) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        console.log(JSON.stringify(data, null, 1));
+        console.log(data);
         return data;
     } catch (error) {
         console.error(`Error fetching data: ${error.message}`);
     }
 }
 
-fetchData('https://valorant-api.com/v1/agents');
+export async function cleanAgentData(){
+    const agentData = await fetchData('https://valorant-api.com/v1/agents');
+
+    const agents = [];
+    agentData.data.forEach(agent => {
+        const { displayName, description, displayIcon, fullPortrait, isPlayableCharacter, role, abilities,  } = agent;
+        const cleanAgent = { name: displayName, descrip: description, icon: displayIcon, portrait: fullPortrait, playable: isPlayableCharacter, role, abilities, };
+        agents.push(cleanAgent);
+    });
+    return agents;
+}

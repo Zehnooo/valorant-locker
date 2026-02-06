@@ -1,3 +1,5 @@
+import { cleanAgentData } from './valorantapi.js';
+
 (() => {
     window.onload = () => {
         const main = document.querySelector('main');
@@ -109,7 +111,7 @@ function clearMain(){
 function updateMain(page, activePage){
 
     const main = getElements('main', 'single');
-    page = String(page).toLowerCase();
+    page = String(page).toLowerCase().replace(' ', '');
     if (page === activePage){
         console.log(`Page: ${page.toUpperCase()} is already active. Not switching page.`)
         return;
@@ -118,6 +120,9 @@ function updateMain(page, activePage){
         switch(page){
             case 'home':
                 createDefaultPage(main);
+                break;
+            case 'agentselect':
+
                 break;
             default:
                 showPageError(main);
@@ -134,4 +139,14 @@ function showPageError(main) {
             <p class="text">Unable to load the requested page. Please contact the site administrator if the issue persists.</p>
         </div>
     `;
+}
+
+function buildAgentSelect(main){
+    const filterContainer = document.createElement('div');
+    const filters = document.createElement('div');
+    filters.id = 'filters';
+}
+
+async function getAgents(){
+    return await cleanAgentData();
 }

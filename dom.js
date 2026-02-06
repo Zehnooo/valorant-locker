@@ -124,7 +124,7 @@ function showPageError(main) {
         <div style="text-align:center; padding:40px;">
             <h1 class="head">404</h1>
             <p class="text">Well… this is awkward.</p>
-            <p class="text">Unable to load the requested page. Please contact the site administrator if the issue persits.</p>
+            <p class="text">Unable to load the requested page. Please contact the site administrator if the issue persists.</p>
         </div>
     `;
 }

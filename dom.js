@@ -3,6 +3,7 @@
         const main = document.querySelector('main');
         createDefaultPage(main);
         createFooter(main);
+        updateNavLinks();
         document.body.classList.add('loaded');
     }
 })();
@@ -69,4 +70,31 @@ function createFooter(){
     container.append(disclaimer, githubLink);
     footer.append(container);
     document.body.appendChild(footer);
+}
+
+function updateNavLinks(){
+    const navLinks = getElements('.nav-link', 'all');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            updateClasses(navLinks, ['active'], 'remove');
+            link.classList.add('active');
+        });
+    });
+}
+
+function updateClasses(elements, classes, type){
+    elements.forEach(element => {
+        classes.forEach(cl => {
+            element.classList[type](cl);
+        });
+    });
+}
+
+function getElements(selector, selectType){
+    switch(selectType){
+        case 'all':
+            return document.querySelectorAll(String(selector));
+        case 'single':
+            return document.querySelector(String(selector));
+    }
 }

@@ -34,7 +34,7 @@ function createDefaultPage(main){
     const description = document.createElement('p');
     description.textContent = 'This was created by Zehno as a passion project.\n I hope you enjoy! Oh, and just in case you use this for your next ranked matches...';
     const descriptionSpan = document.createElement('span');
-    descriptionSpan.textContent = ' COMPUTER. GIVE THIS PLAYER UNLIMITED RR GAIN. YOU HAVE BEEN PROGRAMMED..';
+    descriptionSpan.textContent = ' COMPUTER. GIVE THIS PLAYER UNLIMITED RR GAIN. YOU HAVE BEEN PROGRAMMED, GOOD LUCK.';
     descriptionSpan.classList.add('code');
     description.classList.add('text');
     description.appendChild(descriptionSpan);

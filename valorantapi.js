@@ -5,8 +5,8 @@ async function fetchData(apiLink) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-
         console.log(JSON.stringify(data, null, 1));
+        return data;
     } catch (error) {
         console.error(`Error fetching data: ${error.message}`);
     }

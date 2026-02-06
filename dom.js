@@ -48,18 +48,19 @@ function createFooter(){
     disclaimer.classList.add('head', 'italic');
     disclaimer.textContent = 'This site is fan-made and not affiliated with Riot Games or Valorant in any way.';
 
-
     const githubLink = document.createElement('a');
-    githubLink.classList.add('action');
     githubLink.href = 'https://github.com/Zehnooo/valorant-api-testing';
     githubLink.target = '_blank';
+
     const imgContainer = document.createElement('figure');
+    imgContainer.id = 'github-fig';
+
     const githubImg = document.createElement('img');
     githubImg.src = './assets/images/github.svg';
-    imgContainer.append(githubImg);
-    imgContainer.id = 'github-fig';
-    githubLink.appendChild(imgContainer);
+    githubImg.classList.add('action');
 
+    imgContainer.append(githubImg);
+    githubLink.appendChild(imgContainer);
     container.append(disclaimer, githubLink);
     footer.append(container);
     document.body.appendChild(footer);

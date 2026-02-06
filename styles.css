@@ -171,7 +171,7 @@ footer div {
     justify-content: space-evenly;
     align-items: center;
     text-align: center;
-    margin: 0 auto;
+    margin: 0 1rem;
     color: var(--red);
 }
 
@@ -226,7 +226,6 @@ footer div h3 {
 .nav-link {
     display: inline-block;
     position: relative;
-    /* transition: transform ease-in-out 0.08s; */
 }
 
 .nav-link:active {

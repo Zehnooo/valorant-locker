@@ -9,7 +9,6 @@
 
 function createDefaultPage(main){
     console.log('Hello World');
-
     const bannerContainer = document.createElement('div');
     bannerContainer.id = 'banner'
     const banner = document.createElement('video');
@@ -68,21 +67,3 @@ function createFooter(){
     footer.append(container);
     document.body.appendChild(footer);
 }
-
-/*
-const options = document.createElement('div');
-    const paypalContainer = document.createElement('div');
-    paypalContainer.id = 'paypal-container-RFMSYLX9NT296';
-    const paypalScript = document.createElement('script');
-    paypalScript.textContent = 'paypal.HostedButtons({\n    hostedButtonId: "RFMSYLX9NT296",\n  }).render("#paypal-container-RFMSYLX9NT296")'
-    paypalContainer.append(paypalScript);
-
-
-    const gitContainer = document.createElement('div');
-
-    const githubImg = document.createElement('img');
-    githubImg.src = './assets/images/github.svg';
-    gitContainer.append(githubImg, githubLink)
-
-    options.append(paypalContainer, gitContainer);
- */

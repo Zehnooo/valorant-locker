@@ -66,7 +66,6 @@ body {
 body.loaded {
     opacity: 1;
     overflow: hidden;
-    transition: cursor ease 0.04s;
 }
 
 :root {
@@ -124,7 +123,7 @@ main {
     width: 90%;
     margin: 2rem auto;
     height: auto;
-    background: var(--grey);
+    background: none;
     padding: 2rem;
     border-radius: 12px;
 }

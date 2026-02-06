@@ -51,13 +51,16 @@ function createFooter(){
     const githubLink = document.createElement('a');
     githubLink.href = 'https://github.com/Zehnooo/valorant-api-testing';
     githubLink.target = '_blank';
+    githubLink.textContent = 'View my Github!';
+    githubLink.classList.add('text');
+    githubLink.classList.add('action');
 
     const imgContainer = document.createElement('figure');
     imgContainer.id = 'github-fig';
 
     const githubImg = document.createElement('img');
     githubImg.src = './assets/images/github.svg';
-    githubImg.classList.add('action');
+
 
     imgContainer.append(githubImg);
     githubLink.appendChild(imgContainer);

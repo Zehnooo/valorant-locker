@@ -146,7 +146,7 @@ main {
     border-radius: 12px;
 }
 
-nav a {
+a {
     text-decoration: none;
     color: var(--gold);
 }
@@ -201,12 +201,34 @@ footer div h3 {
 }
 
 .action {
-    display: inline-block;
-    transition: transform ease-in-out 0.08s;
     cursor: url('assets/images/cursor_ping_action.png'), auto;
 }
 
-.action:active {
-    transform: translateY(3px);
+.nav-link {
+    display: inline-block;
+    position: relative;
+    /* transition: transform ease-in-out 0.08s; */
+}
+
+.nav-link:active {
+    transform: translateY(2px);
     color: var(--red);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--red);
+    bottom: -8px;
+    left: 0;
+
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
 }

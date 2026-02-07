@@ -20,3 +20,13 @@ export function target(index, width, count){
     const center = (window.innerWidth / 2) - (width / 2);
     return -(spinDistance + distanceToWinner - center);
 }
+
+export function calculateOffset(track, index, count){
+
+    const item = track.querySelector('figure');
+    const itemWidth = item.getBoundingClientRect().width;
+    const itemStyles = getComputedStyle(track);
+    const gap = parseFloat(itemStyles.columnGap || itemStyles.gap || 0);
+    const step = itemWidth + gap;
+    return target(index, step, count);
+}

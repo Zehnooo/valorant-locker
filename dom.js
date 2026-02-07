@@ -1,5 +1,5 @@
 import { cleanAgentData } from './valorantapi.js';
-import { filterAgents, getRandomAgent, target } from './tools.js';
+import {calculateOffset, filterAgents, getRandomAgent, target} from './tools.js';
 
 (() => {
     window.onload = () => {
@@ -126,7 +126,7 @@ function updateMain(page, activePage){
                 createDefaultPage(main);
                 break;
             case 'agentselect':
-                getAgents().then(data => buildAgentSelect(main, data));
+                buildAgentSelect(main);
                 break;
             default:
                 showPageError(main);
@@ -145,21 +145,23 @@ function showPageError(main) {
     `;
 }
 
-function buildAgentSelect(main, data){
-    const agentSelect = document.createElement('div');
-    agentSelect.id = 'agent-select';
-
-    const filteredAgents = filterAgents(data);
-    const wheel = buildAgentWheel(data);
-    const filters = buildFilters(filteredAgents);
-    agentSelect.append(wheel, filters);
-    main.append(agentSelect);
+function buildAgentSelect(main){
+    getAgents().then(data => {
+        const agentSelect = document.createElement('div');
+        agentSelect.id = 'agent-select';
+        const wheel = buildAgentWheel(data);
+        const filters = buildFilters(data);
+        agentSelect.append(wheel, filters);
+        main.append(agentSelect)
+    });
 }
+
 async function getAgents(){
     return await cleanAgentData();
 }
 
-function buildFilters(agents){
+function buildFilters(data){
+    const agents = filterAgents(data);
     const filterContainer = document.createElement('div');
     Object.keys(agents).forEach(role => {
         const roleAgents = agents[role];
@@ -226,8 +228,9 @@ function buildAgentWheel(agents){
     updateClasses([spinBtn], ['action', 'btn'], 'add');
     spinBtn.addEventListener('click', () => spinWheel(agents));
 
+    const trackItems = Array.from(innerTrack.children);
     for (let i = 0; i < 2; i++){
-        innerTrack.append(innerTrack.cloneNode(true));
+        trackItems.forEach(item => innerTrack.append(item.cloneNode(true)));
     }
 
     track.append(innerTrack );
@@ -235,15 +238,14 @@ function buildAgentWheel(agents){
     return container;
 }
 
+
 function spinWheel(agents){
+    const innerTrack = document.querySelector('.inner-track');
     const winningAgent = getRandomAgent(agents);
-    console.log(winningAgent.name);
+    console.log(winningAgent);
+    const count = agents.length;
     const index = agents.findIndex(agent => agent.name === winningAgent.name);
-
-
-    const innerTrack = getElements('.inner-track', 'single');
-    const selected = getElements(`#${winningAgent.name}`.toLowerCase().replace('/',''), 'single');
-    const offset = target(index, selected.offsetWidth, agents.length)
+    const offset = calculateOffset(innerTrack, index, count);
     document.documentElement.style.setProperty('--spinpx', `${offset}px`);
     innerTrack.classList.add('spin');
 }

@@ -355,13 +355,13 @@ footer div h3 {
     display: flex;
     width: max-content;
     gap: 2rem;
-    scroll-snap-align: center;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
 }
 
 #agent-select .inner-track figure {
     max-width: 150px;
+    scroll-snap-align: center;
 }
 
 #agent-select .inner-track.spin {

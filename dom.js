@@ -1,5 +1,5 @@
 import { cleanAgentData } from './valorantapi.js';
-import {calculateOffset, filterAgents, getRandomAgent, target} from './tools.js';
+import {calculateOffset, filterAgents, getRandomAgent} from './tools.js';
 
 (() => {
     window.onload = () => {
@@ -110,17 +110,16 @@ function getElements(selector, selectType){
 function clearMain(){
     const main = getElements('main', 'single');
     main.textContent = '';
+    return main;
 }
 
 function updateMain(page, activePage){
-
-    const main = getElements('main', 'single');
     page = String(page).toLowerCase().replace(' ', '');
     if (page === activePage){
         console.log(`Page: ${page.toUpperCase()} is already active. Not switching page.`)
         return;
     }
-        clearMain();
+        const main = clearMain();
         switch(page){
             case 'home':
                 createDefaultPage(main);
@@ -240,6 +239,10 @@ function buildAgentWheel(agents){
 
 
 function spinWheel(agents){
+    const btn = document.querySelector('#spin');
+    btn.disabled = true;
+    btn.textContent = 'Spinning...';
+    btn.classList.add('disabled');
     const innerTrack = document.querySelector('.inner-track');
     const winningAgent = getRandomAgent(agents);
     console.log(winningAgent);
@@ -248,4 +251,77 @@ function spinWheel(agents){
     const offset = calculateOffset(innerTrack, index, count);
     document.documentElement.style.setProperty('--spinpx', `${offset}px`);
     innerTrack.classList.add('spin');
+    innerTrack.addEventListener('animationend', () => {
+        innerTrack.classList.remove('spin');
+        showAgentInfo(winningAgent);
+        }
+    )
+}
+
+function showAgentInfo(agent){
+    const main = clearMain();
+    const container = document.createElement('div');
+    container.id = 'agent-page';
+    const header = buildAgentHeader(agent);
+    const abilities = buildAgentAbilities(agent);
+
+    container.append(header, abilities);
+    main.append(container);
+}
+
+function buildAgentHeader(agent){
+    const headContainer = document.createElement('div');
+    headContainer.id = 'agent-head';
+
+    const infoContainer = document.createElement('div');
+
+    const name = document.createElement('h2');
+    name.textContent = agent.name;
+    name.classList.add('head2');
+
+    const descrip = document.createElement('p');
+    descrip.textContent = agent.descrip;
+    descrip.classList.add('text');
+
+    const imgContainer = document.createElement('figure');
+    const portrait = document.createElement('img');
+    portrait.src = agent.portrait;
+
+    infoContainer.append(name, descrip);
+    imgContainer.append(portrait);
+    headContainer.append(imgContainer, infoContainer);
+
+    return headContainer;
+}
+
+function buildAgentAbilities(agent){
+    const abilityContainer = document.createElement('div');
+    abilityContainer.id = 'abilities';
+    agent.abilities.forEach(ability => {
+
+        const abilityCard = document.createElement('div');
+
+        const name = document.createElement('h2');
+        name.textContent = ability.displayName;
+
+        const slot = document.createElement('h2');
+        slot.textContent = ability.slot;
+
+        const description = document.createElement('p');
+        description.textContent = ability.description;
+
+        const imgContainer = document.createElement('figure');
+        const icon = document.createElement('img');
+        icon.src = ability.displayIcon || './assets/images/placeholder_white.svg';
+        imgContainer.append(icon);
+
+        updateClasses([name], ['head2', 'ability-name'], 'add');
+        updateClasses([description], ['text', 'ability-descrip'], 'add');
+        updateClasses([slot], ['head2', 'ability-slot'], 'add');
+        updateClasses([imgContainer], ['ability-icon'], 'add');
+
+        abilityCard.append(imgContainer, name, slot, description);
+        abilityContainer.append(abilityCard);
+    });
+    return abilityContainer;
 }

@@ -140,6 +140,7 @@ main {
     background: none;
     padding: 2rem;
     border-radius: 12px;
+    position: relative;
 }
 
 #home {
@@ -366,5 +367,74 @@ footer div h3 {
 
 #agent-select .inner-track.spin {
     animation: infinite-scroll 4s cubic-bezier(0.15, 0, 0.15, 1) forwards;
+}
 
+.wait {
+    cursor: url('assets/images/cursor_ping_waiting.png'), auto;
+}
+
+.disabled {
+    cursor: url('assets/images/cursor_ping_action_disabled.png'), auto;
+}
+
+#agent-page #agent-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    place-items: center;
+}
+
+#agent-page #agent-head > * {
+    width: 100%;
+}
+
+#agent-page #agent-head figure {
+    max-width: 800px;
+}
+
+#agent-page #agent-head figure img {
+    width: 100%;
+    height: 100%;
+}
+
+#agent-page #abilities {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: space-between;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+#agent-page #abilities > * {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#agent-page #abilities div > * {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+}
+
+#agent-page .ability-icon {
+    max-width: 100px;
+
+}
+
+#agent-page .ability-name, #agent-page .ability-slot {
+    text-align: center;
+}
+
+#agent-page .ability-icon img {
+    width: 100%;
+}
+
+#agent-page .ability-descrip {
+    text-wrap: pretty;
+    line-height: 1.5;
 }

@@ -22,7 +22,6 @@ export function target(index, width, count){
 }
 
 export function calculateOffset(track, index, count){
-
     const item = track.querySelector('figure');
     const itemWidth = item.getBoundingClientRect().width;
     const itemStyles = getComputedStyle(track);

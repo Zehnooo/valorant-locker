@@ -274,10 +274,18 @@ function buildAgentHeader(agent){
     headContainer.id = 'agent-head';
 
     const infoContainer = document.createElement('div');
+    infoContainer.id = 'main-info';
+    const heading = document.createElement('div');
+    heading.classList.add('head2');
 
     const name = document.createElement('h2');
     name.textContent = agent.name;
-    name.classList.add('head2');
+
+    const roleImg = document.createElement('img');
+    const roleImgContainer = document.createElement('figure');
+    roleImg.src = agent.role.displayIcon;
+    roleImgContainer.append(roleImg);
+
 
     const descrip = document.createElement('p');
     descrip.textContent = agent.descrip;
@@ -286,8 +294,10 @@ function buildAgentHeader(agent){
     const imgContainer = document.createElement('figure');
     const portrait = document.createElement('img');
     portrait.src = agent.portrait;
+    imgContainer.id = 'portrait';
 
-    infoContainer.append(name, descrip);
+    heading.append(name, roleImgContainer);
+    infoContainer.append(heading, descrip);
     imgContainer.append(portrait);
     headContainer.append(imgContainer, infoContainer);
 

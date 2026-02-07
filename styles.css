@@ -307,7 +307,7 @@ footer div h3 {
     padding: 0;
 }
 
-#agent-select .card-small figure img, #agent-select #wheel .inner-track img {
+#agent-select .card-small figure img, #agent-select #wheel .inner-track img, #agent-page #main-info figure img {
     width: 100%;
     height: 100%;
 }
@@ -386,15 +386,39 @@ footer div h3 {
 
 #agent-page #agent-head > * {
     width: 100%;
+    margin: 2rem auto;
 }
 
-#agent-page #agent-head figure {
-    max-width: 800px;
+#agent-page #agent-head #portrait {
+    max-width: 600px;
 }
 
-#agent-page #agent-head figure img {
+#agent-page #agent-head #portrait img, #agent-page .ability-icon img, #agent-page .role-icon img, #agent-page #abilities div > *, #agent-page #abilities > *, #agent-page #main-info, #agent-page #main-info > *  {
     width: 100%;
     height: 100%;
+}
+
+#agent-page #main-info {
+    display: flex;
+    flex-direction: column;
+}
+
+#agent-page #main-info p {
+    text-wrap: pretty;
+    line-height: 1.5;
+    margin: 0 auto;
+}
+
+#agent-page #main-info div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 auto;
+}
+
+#agent-page #main-info figure {
+max-width: 75px;
 }
 
 #agent-page #abilities {
@@ -407,8 +431,6 @@ footer div h3 {
 }
 
 #agent-page #abilities > * {
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -416,25 +438,20 @@ footer div h3 {
 }
 
 #agent-page #abilities div > * {
-    width: 100%;
-    height: 100%;
     padding: 1rem;
 }
 
-#agent-page .ability-icon {
+#agent-page .ability-icon, #agent-page .role-icon {
     max-width: 100px;
-
 }
 
 #agent-page .ability-name, #agent-page .ability-slot {
     text-align: center;
 }
 
-#agent-page .ability-icon img {
-    width: 100%;
-}
-
 #agent-page .ability-descrip {
     text-wrap: pretty;
     line-height: 1.5;
 }
+
+

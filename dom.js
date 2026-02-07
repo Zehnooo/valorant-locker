@@ -35,7 +35,7 @@ function createDefaultPage(main){
     span.textContent = 'Valorant Locker';
     span.classList.add('italic');
     heading.appendChild(span);
-    heading.classList.add('head');
+    heading.classList.add('head2');
     const description = document.createElement('p');
     description.textContent = 'This was created by Zehno as a passion project.\n I hope you enjoy! Oh, and just in case you use this for your next ranked matches...';
     const descriptionSpan = document.createElement('span');
@@ -53,7 +53,7 @@ function createFooter(){
     const container = document.createElement('div');
 
     const disclaimer = document.createElement('h3');
-    disclaimer.classList.add('head', 'italic');
+    updateClasses([disclaimer], ['text', 'italic'], 'add');
     disclaimer.textContent = 'This site is fan-made and not affiliated with Riot Games or Valorant in any way.';
 
     const githubLink = document.createElement('a');
@@ -92,8 +92,10 @@ function updateNavLinks(){
 }
 
 function updateClasses(elements = [], classes, type){
-    elements.length === 1 ? classes.forEach(cl => { elements.classList[type](cl)}) :
-        elements.forEach(element => { classes.forEach(cl => { element.classList[type](cl); });
+        if (elements.length === 0) return console.warn(
+            'No elements provided for function updateClasses.'
+        );
+        elements.forEach(el => { classes.forEach(cl => { el.classList[type](cl); });
     });
 }
 
@@ -169,7 +171,7 @@ function buildFilters(agents){
 
         const heading = document.createElement('h2');
         heading.textContent = role.toUpperCase();
-        heading.classList.add('head');
+        heading.classList.add('head2');
 
 
         roleContainer.append(heading);

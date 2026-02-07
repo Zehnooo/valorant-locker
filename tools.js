@@ -7,3 +7,16 @@ export function filterAgents(agents){
     console.log('filtered',{initiators, sentinels, duelists, controllers});
     return {duelists, initiators, controllers, sentinels};
 }
+
+export function getRandomAgent(agents){
+    return agents[Math.floor(Math.random() * agents.length)];
+}
+
+export function target(index, width, count){
+    console.log(index, width, count);
+    const totalWidth = (width * count);
+    const distanceToWinner = (index * width);
+    const spinDistance = 2 * totalWidth;
+    const center = (window.innerWidth / 2) - (width / 2);
+    return -(spinDistance + distanceToWinner - center);
+}

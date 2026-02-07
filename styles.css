@@ -34,6 +34,19 @@ summary{display:list-item}
 template{display:none}
 [hidden]{display:none}
 
+:root {
+    --black: rgba(17, 17, 17, 1);
+    --grey: rgba(52,52,52, 1);
+    --red: rgba(237, 27, 36, 1);
+    --gold: rgba(250, 218, 94, 1);
+    --light: rgba(240, 248, 255, 1);
+    --green: rgba(0,105,62,1);
+    --h1size: clamp(2rem, 4vw + 0.5rem, 3.25rem);
+    --h2size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem);
+    --bodysize: 18px;
+    --spinpx: 0px;
+}
+
 @font-face {
     font-family: 'OswaldBold';
     src: url('./assets/fonts/Oswald-Bold.ttf');
@@ -48,11 +61,9 @@ template{display:none}
 }
 
 @keyframes infinite-scroll {
-    from {
-        transform: translateX(0);
-    }
+    from { transform: translateX(0); }
     to {
-        transform: translateX(-50%);
+        transform: translateX(var(--spinpx));
     }
 }
 
@@ -79,18 +90,6 @@ body {
 body.loaded {
     opacity: 1;
     overflow-X: hidden;
-}
-
-:root {
-    --black: rgba(17, 17, 17, 1);
-    --grey: rgba(52,52,52, 1);
-    --red: rgba(237, 27, 36, 1);
-    --gold: rgba(250, 218, 94, 1);
-    --light: rgba(240, 248, 255, 1);
-    --green: rgba(0,105,62,1);
-    --h1size: clamp(2rem, 4vw + 0.5rem, 3.25rem);
-    --h2size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem);
-    --bodysize: 18px;
 }
 
 nav {
@@ -282,7 +281,7 @@ footer div h3 {
     place-items: center;
     gap: .5rem;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     background: var(--grey);
     border-radius: 12px;
@@ -349,18 +348,23 @@ footer div h3 {
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
+    margin: 0 auto;
 }
 
 #agent-select .inner-track {
     display: flex;
     width: max-content;
     gap: 2rem;
+    scroll-snap-align: center;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
 }
 
 #agent-select .inner-track figure {
-    max-width: 100px;
+    max-width: 150px;
 }
 
 #agent-select .inner-track.spin {
-    animation: infinite-scroll 8s ease-out;
+    animation: infinite-scroll 4s cubic-bezier(0.15, 0, 0.15, 1) forwards;
+
 }

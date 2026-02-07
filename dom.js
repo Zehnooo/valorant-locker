@@ -1,5 +1,5 @@
 import { cleanAgentData } from './valorantapi.js';
-import { filterAgents } from './tools.js';
+import { filterAgents, getRandomAgent, target } from './tools.js';
 
 (() => {
     window.onload = () => {
@@ -150,7 +150,7 @@ function buildAgentSelect(main, data){
     agentSelect.id = 'agent-select';
 
     const filteredAgents = filterAgents(data);
-    const wheel = buildAgentWheel(filteredAgents);
+    const wheel = buildAgentWheel(data);
     const filters = buildFilters(filteredAgents);
     agentSelect.append(wheel, filters);
     main.append(agentSelect);
@@ -163,6 +163,7 @@ function buildFilters(agents){
     const filterContainer = document.createElement('div');
     Object.keys(agents).forEach(role => {
         const roleAgents = agents[role];
+
         const roleContainer = document.createElement('div');
         roleContainer.classList.add('role-container');
         roleContainer.id = role.toLowerCase();
@@ -198,6 +199,7 @@ function buildAgentCard(agent, size){
 }
 
 function buildAgentWheel(agents){
+
     const container = document.createElement('div');
     container.id = 'wheel';
     const track = document.createElement('div');
@@ -205,22 +207,43 @@ function buildAgentWheel(agents){
     const innerTrack = document.createElement('div');
     innerTrack.classList.add('inner-track');
 
-    for (let i = 0; i < 30; i++){
+
+    for (let i = 0; i < agents.length; i++){
         let imgContainer = document.createElement('figure');
-        let placeholderImg = document.createElement('img');
-        placeholderImg.src = './assets/images/placeholder.svg';
-        placeholderImg.alt = 'Placeholder Image'
-        imgContainer.append(placeholderImg);
+        let agentImg = document.createElement('img');
+            agentImg.src = agents[i].icon;
+            agentImg.alt = `${agents[i].name}'s picture`;
+            agentImg.id = agents[i].name.toLowerCase().replace('/','');
+
+        imgContainer.append(agentImg);
         innerTrack.append(imgContainer);
     }
-    innerTrack.classList.add('spin');
+
     const spinBtn = document.createElement('button');
     spinBtn.textContent = 'Spin';
     spinBtn.type = 'button';
     spinBtn.id = 'spin';
     updateClasses([spinBtn], ['action', 'btn'], 'add');
+    spinBtn.addEventListener('click', () => spinWheel(agents));
 
-    track.append(innerTrack);
+    for (let i = 0; i < 2; i++){
+        innerTrack.append(innerTrack.cloneNode(true));
+    }
+
+    track.append(innerTrack );
     container.append(track, spinBtn);
     return container;
+}
+
+function spinWheel(agents){
+    const winningAgent = getRandomAgent(agents);
+    console.log(winningAgent.name);
+    const index = agents.findIndex(agent => agent.name === winningAgent.name);
+
+
+    const innerTrack = getElements('.inner-track', 'single');
+    const selected = getElements(`#${winningAgent.name}`.toLowerCase().replace('/',''), 'single');
+    const offset = target(index, selected.offsetWidth, agents.length)
+    document.documentElement.style.setProperty('--spinpx', `${offset}px`);
+    innerTrack.classList.add('spin');
 }

@@ -59,7 +59,6 @@ function createFooter(){
     const githubLink = document.createElement('a');
     githubLink.href = 'https://github.com/Zehnooo/valorant-api-testing';
     githubLink.target = '_blank';
-    //githubLink.textContent = 'View my Github!';
     githubLink.classList.add('text');
     githubLink.classList.add('action');
 
@@ -151,10 +150,9 @@ function buildAgentSelect(main, data){
     agentSelect.id = 'agent-select';
 
     const filteredAgents = filterAgents(data);
+    const wheel = buildAgentWheel(filteredAgents);
     const filters = buildFilters(filteredAgents);
-
-
-    agentSelect.append(filters);
+    agentSelect.append(wheel, filters);
     main.append(agentSelect);
 }
 async function getAgents(){
@@ -173,11 +171,13 @@ function buildFilters(agents){
         heading.textContent = role.toUpperCase();
         heading.classList.add('head2');
 
+        const agentContainer = document.createElement('div');
+        roleAgents.forEach(agent => {
+            agentContainer.append(buildAgentCard(agent, 'small'));
+        });
 
         roleContainer.append(heading);
-        roleAgents.forEach(agent => {
-            roleContainer.append(buildAgentCard(agent, 'small'));
-        });
+        roleContainer.append(agentContainer);
         filterContainer.append(roleContainer);
     });
     filterContainer.id = 'filters';
@@ -195,4 +195,32 @@ function buildAgentCard(agent, size){
 
     card.append(imgContainer);
     return card;
+}
+
+function buildAgentWheel(agents){
+    const container = document.createElement('div');
+    container.id = 'wheel';
+    const track = document.createElement('div');
+    track.classList.add('track');
+    const innerTrack = document.createElement('div');
+    innerTrack.classList.add('inner-track');
+
+    for (let i = 0; i < 30; i++){
+        let imgContainer = document.createElement('figure');
+        let placeholderImg = document.createElement('img');
+        placeholderImg.src = './assets/images/placeholder.svg';
+        placeholderImg.alt = 'Placeholder Image'
+        imgContainer.append(placeholderImg);
+        innerTrack.append(imgContainer);
+    }
+    innerTrack.classList.add('spin');
+    const spinBtn = document.createElement('button');
+    spinBtn.textContent = 'Spin';
+    spinBtn.type = 'button';
+    spinBtn.id = 'spin';
+    updateClasses([spinBtn], ['action', 'btn'], 'add');
+
+    track.append(innerTrack);
+    container.append(track, spinBtn);
+    return container;
 }

@@ -47,6 +47,15 @@ template{display:none}
     src: url('./assets/fonts/Oswald-Regular.ttf');
 }
 
+@keyframes infinite-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
 *, html {
     box-sizing: border-box;
 }
@@ -79,8 +88,8 @@ body.loaded {
     --gold: rgba(250, 218, 94, 1);
     --light: rgba(240, 248, 255, 1);
     --green: rgba(0,105,62,1);
-    --h1size: clamp(2.5rem, 5vw + 1rem, 4rem);
-    --h2size: clamp(2rem, 4vw + 0.5rem, 3.25rem);
+    --h1size: clamp(2rem, 4vw + 0.5rem, 3.25rem);
+    --h2size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem);
     --bodysize: 18px;
 }
 
@@ -260,12 +269,24 @@ footer div h3 {
     color: var(--red); !important
 }
 
+#agent-select {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 #agent-select #filters {
     display: grid;
     grid-template-rows: repeat(4, minmax(100px, 1fr));
     place-items: center;
-    gap: 1rem;
+    gap: .5rem;
     width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--grey);
+    border-radius: 12px;
+    padding: 1rem;
 }
 
 #agent-select .card-small {
@@ -273,15 +294,20 @@ footer div h3 {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    max-width: 200px;
-}
-
-#agent-select .card-small figure {
     max-width: 75px;
-    margin: 0;
+    background: var(--black);
+    border-radius: 12px;
+    padding: .5rem;
 }
 
-#agent-select .card-small figure img {
+#agent-select .card-small figure, #agent-select .inner-track figure {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#agent-select .card-small figure img, #agent-select #wheel .inner-track img {
     width: 100%;
     height: 100%;
 }
@@ -290,6 +316,51 @@ footer div h3 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     text-align: left;
     width: 100%;
+    gap: 1rem;
+}
+
+#agent-select .role-container h3 {
+    width: 100%;
+}
+
+#agent-select .role-container div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    justify-content: center;
+}
+
+#agent-select .role-container > * {
+    margin: 0;
+    padding: 0;
+}
+
+#agent-select #wheel {
+    width: 100%;
+    height: 100%;
+    margin: 2rem 0;
+}
+
+#agent-select .track {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#agent-select .inner-track {
+    display: flex;
+    width: max-content;
+    gap: 2rem;
+}
+
+#agent-select .inner-track figure {
+    max-width: 100px;
+}
+
+#agent-select .inner-track.spin {
+    animation: infinite-scroll 8s ease-out;
 }

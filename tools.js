@@ -29,3 +29,14 @@ export function calculateOffset(track, index, count){
     const step = itemWidth + gap;
     return target(index, step, count);
 }
+
+export function disableAgent(agent){
+    agent.isDisabled === true ? agent.isDisabled = false : agent.isDisabled = true;
+    return agent.isDisabled;
+}
+
+export function getAvailableAgents(agents){
+    return agents.filter(agent => {
+        return !agent.isDisabled
+    });
+}

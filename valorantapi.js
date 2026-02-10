@@ -18,7 +18,8 @@ export async function cleanAgentData(){
     const agents = [];
     agentData.data.forEach(agent => {
         const { displayName, description, displayIcon, fullPortrait, isPlayableCharacter, role, abilities,  } = agent;
-        const cleanAgent = { name: displayName, descrip: description, icon: displayIcon, portrait: fullPortrait, playable: isPlayableCharacter, role, abilities, };
+        const cleanAgent = { name: displayName.replace('/', ''), descrip: description, icon: displayIcon, portrait: fullPortrait, playable: isPlayableCharacter, role, abilities, isDisabled: false };
+
         agents.push(cleanAgent);
     });
     return agents;

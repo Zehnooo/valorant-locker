@@ -1,5 +1,5 @@
 import { cleanAgentData } from './valorantapi.js';
-import {calculateOffset, filterAgents, getRandomAgent} from './tools.js';
+import {calculateOffset, filterAgents, getRandomAgent, disableAgent, getAvailableAgents} from './tools.js';
 
 (() => {
     window.onload = () => {
@@ -149,8 +149,9 @@ function buildAgentSelect(main){
         const agentSelect = document.createElement('div');
         agentSelect.id = 'agent-select';
         const wheel = buildAgentWheel(data);
+        const btn = buildSpinButton(data);
         const filters = buildFilters(data);
-        agentSelect.append(wheel, filters);
+        agentSelect.append(wheel, btn, filters);
         main.append(agentSelect)
     });
 }
@@ -160,10 +161,11 @@ async function getAgents(){
 }
 
 function buildFilters(data){
-    const agents = filterAgents(data);
+    const agentsByRole = filterAgents(data);
     const filterContainer = document.createElement('div');
-    Object.keys(agents).forEach(role => {
-        const roleAgents = agents[role];
+
+    Object.keys(agentsByRole).forEach(role => {
+        const roleAgents = agentsByRole[role];
 
         const roleContainer = document.createElement('div');
         roleContainer.classList.add('role-container');
@@ -175,7 +177,8 @@ function buildFilters(data){
 
         const agentContainer = document.createElement('div');
         roleAgents.forEach(agent => {
-            agentContainer.append(buildAgentCard(agent, 'small'));
+            agentContainer.append(buildAgentCard(agent, 'small', true));
+
         });
 
         roleContainer.append(heading);
@@ -186,46 +189,41 @@ function buildFilters(data){
     return filterContainer;
 }
 
-function buildAgentCard(agent, size){
-    const card = document.createElement('div');
-    card.classList.add(`card-${size}`);
-
+function buildAgentCard(agent, size, clickable = false){
     const imgContainer = document.createElement('figure');
+    imgContainer.id = agent.name;
+    imgContainer.classList.add(`card-${size}`);
     const img = document.createElement('img');
     img.src = agent.icon;
     imgContainer.append(img);
 
-    card.append(imgContainer);
-    return card;
+    if (clickable) {
+        imgContainer.addEventListener('click', (e) => {
+            e.preventDefault();
+            imgContainer.classList.toggle('disable-agent');
+            disableAgent(agent);
+        });
+    }
+    return imgContainer;
 }
 
 function buildAgentWheel(agents){
+    const availableAgents = getAvailableAgents(agents);
+
+    let track = document.querySelector('.inner-track');
+    track !== null ? track.innerHTML = '' : track = document.createElement('div');
+
 
     const container = document.createElement('div');
     container.id = 'wheel';
-    const track = document.createElement('div');
+
     track.classList.add('track');
     const innerTrack = document.createElement('div');
     innerTrack.classList.add('inner-track');
 
-
-    for (let i = 0; i < agents.length; i++){
-        let imgContainer = document.createElement('figure');
-        let agentImg = document.createElement('img');
-            agentImg.src = agents[i].icon;
-            agentImg.alt = `${agents[i].name}'s picture`;
-            agentImg.id = agents[i].name.toLowerCase().replace('/','');
-
-        imgContainer.append(agentImg);
-        innerTrack.append(imgContainer);
+    for (let i = 0; i < availableAgents.length; i++){
+        innerTrack.append(buildAgentCard(availableAgents[i], 'large'));
     }
-
-    const spinBtn = document.createElement('button');
-    spinBtn.textContent = 'Spin';
-    spinBtn.type = 'button';
-    spinBtn.id = 'spin';
-    updateClasses([spinBtn], ['action', 'btn'], 'add');
-    spinBtn.addEventListener('click', () => spinWheel(agents));
 
     const trackItems = Array.from(innerTrack.children);
     for (let i = 0; i < 2; i++){
@@ -233,29 +231,48 @@ function buildAgentWheel(agents){
     }
 
     track.append(innerTrack );
-    container.append(track, spinBtn);
+    container.append(track);
     return container;
+}
+function buildSpinButton(agents){
+    const spinBtn = document.createElement('button');
+    spinBtn.textContent = 'Spin';
+    spinBtn.type = 'button';
+    spinBtn.id = 'spin';
+    updateClasses([spinBtn], ['action', 'btn'], 'add');
+    spinBtn.addEventListener('click', () => spinWheel(agents));
+    return spinBtn;
 }
 
 
 function spinWheel(agents){
+    const availableAgents = getAvailableAgents(agents);
+    console.log(availableAgents);
+
     const btn = document.querySelector('#spin');
     btn.disabled = true;
     btn.textContent = 'Spinning...';
-    btn.classList.add('disabled');
+    btn.classList.add('disable-cursor');
+
     const innerTrack = document.querySelector('.inner-track');
-    const winningAgent = getRandomAgent(agents);
+
+    const winningAgent = getRandomAgent(availableAgents);
     console.log(winningAgent);
-    const count = agents.length;
+
     const index = agents.findIndex(agent => agent.name === winningAgent.name);
-    const offset = calculateOffset(innerTrack, index, count);
+    const offset = calculateOffset(innerTrack, index, agents.length);
     document.documentElement.style.setProperty('--spinpx', `${offset}px`);
+
+    innerTrack.classList.remove('spin');
+    void innerTrack.offsetWidth; // restart animation reliably
+
+
     innerTrack.classList.add('spin');
     innerTrack.addEventListener('animationend', () => {
         innerTrack.classList.remove('spin');
+        btn.disabled = false;
         showAgentInfo(winningAgent);
-        }
-    )
+        });
 }
 
 function showAgentInfo(agent){

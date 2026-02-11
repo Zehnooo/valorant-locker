@@ -1,3 +1,5 @@
+import { sortAbilities } from './tools.js'
+
 async function fetchData(apiLink) {
     try {
         const response = await fetch(apiLink);
@@ -18,8 +20,11 @@ export async function cleanAgentData(){
     const agents = [];
     agentData.data.forEach(agent => {
         const { displayName, description, displayIcon, fullPortrait, isPlayableCharacter, role, abilities,  } = agent;
-        const cleanAgent = { name: displayName.replace('/', ''), descrip: description, icon: displayIcon, portrait: fullPortrait, playable: isPlayableCharacter, role, abilities, isDisabled: false };
+        let cleanAgent = { name: displayName.replace('/', ''), descrip: description, icon: displayIcon, portrait: fullPortrait, playable: isPlayableCharacter, role, abilities, isDisabled: false };
+        console.log("before",cleanAgent.abilities);
+        cleanAgent.abilities = sortAbilities(cleanAgent.abilities)
 
+        console.log("after", cleanAgent.abilities);
         agents.push(cleanAgent);
     });
     return agents;

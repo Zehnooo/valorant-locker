@@ -78,14 +78,12 @@ function createFooter(){
 
 function updateNavLinks(){
     const navLinks = getElements('.nav-link', 'all');
-    let activePage = 'home';
 
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             updateClasses(navLinks, ['active'], 'remove');
+            updateMain(link.textContent);
             link.classList.add('active');
-            updateMain(link.textContent, activePage);
-            activePage = link.textContent.toLowerCase();
         });
     });
 }
@@ -113,12 +111,8 @@ function clearMain(){
     return main;
 }
 
-function updateMain(page, activePage){
-    page = String(page).toLowerCase().replace(' ', '');
-    if (page === activePage){
-        console.log(`Page: ${page.toUpperCase()} is already active. Not switching page.`)
-        return;
-    }
+function updateMain(page, agent = null){
+    page = String(page).replace(" ", "").toLowerCase();
         const main = clearMain();
         switch(page){
             case 'home':
@@ -127,11 +121,13 @@ function updateMain(page, activePage){
             case 'agentselect':
                 buildAgentSelect(main);
                 break;
+            case 'showagent':
+                showAgentInfo(main, agent);
+                break;
             default:
                 showPageError(main);
                 break;
         }
-
 }
 
 function showPageError(main) {
@@ -173,7 +169,7 @@ function buildFilters(data){
 
         const heading = document.createElement('h2');
         heading.textContent = role.toUpperCase();
-        heading.classList.add('head2');
+        heading.classList.add('head2', 'action');
 
         heading.addEventListener('click', () => {
             disableAgentGroup(roleAgents, heading.textContent.toLowerCase());
@@ -244,7 +240,7 @@ function buildSpinButton(agents){
     spinBtn.textContent = 'Spin';
     spinBtn.type = 'button';
     spinBtn.id = 'spin';
-    updateClasses([spinBtn], ['action', 'btn'], 'add');
+    spinBtn.classList.add('action', 'btn');
     spinBtn.addEventListener('click', () => spinWheel(agents));
     return spinBtn;
 }
@@ -276,12 +272,12 @@ function spinWheel(agents){
     innerTrack.addEventListener('animationend', () => {
         innerTrack.classList.remove('spin');
         btn.disabled = false;
-        showAgentInfo(winningAgent);
+        updateMain('showagent', winningAgent);
         });
 }
 
-function showAgentInfo(agent){
-    const main = clearMain();
+function showAgentInfo(main, agent){
+
     const container = document.createElement('div');
     container.id = 'agent-page';
     const header = buildAgentHeader(agent);
@@ -292,6 +288,7 @@ function showAgentInfo(agent){
 }
 
 function buildAgentHeader(agent){
+    console.log(agent);
     const headContainer = document.createElement('div');
     headContainer.id = 'agent-head';
 

@@ -4,7 +4,6 @@ export function filterAgents(agents){
     const sentinels = agents.filter(agent => agent.role.displayName === 'Sentinel');
     const duelists = agents.filter(agent => agent.role.displayName === 'Duelist');
     const controllers = agents.filter(agent => agent.role.displayName === 'Controller');
-    console.log('filtered',{initiators, sentinels, duelists, controllers});
     return {duelists, initiators, controllers, sentinels};
 }
 
@@ -39,4 +38,18 @@ export function getAvailableAgents(agents){
     return agents.filter(agent => {
         return !agent.isDisabled
     });
+}
+
+export function sortAbilities(abilites){
+    const abilityOrder = ['Grenade', 'Ability1','Ability2','Ultimate','Passive'];
+
+    const orderMap = abilityOrder.reduce((acc, slot, index) => {
+        acc[slot] = index;
+        return acc;
+    }, {});
+
+        return abilites.sort((a, b) => {
+            return orderMap[a.slot] - orderMap[b.slot];
+        });
+
 }

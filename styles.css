@@ -376,6 +376,13 @@ footer div h3 {
     animation: infinite-scroll 4s cubic-bezier(0.15, 0, 0.15, 1) forwards;
 }
 
+.btn {
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
 .wait {
     cursor: url('assets/images/cursor_ping_waiting.png'), auto;
 }
@@ -465,5 +472,6 @@ max-width: 75px;
     text-wrap: pretty;
     line-height: 1.5;
 }
+
 
 

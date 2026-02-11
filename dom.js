@@ -231,18 +231,21 @@ function buildAgentWheel(agents){
         trackItems.forEach(item => innerTrack.append(item.cloneNode(true)));
     }
 
-    track.append(innerTrack );
+    track.append(innerTrack);
     container.append(track);
     return container;
 }
 function buildSpinButton(agents){
+    const container = document.createElement('div');
+    container.id = 'buttons'
     const spinBtn = document.createElement('button');
     spinBtn.textContent = 'Spin';
     spinBtn.type = 'button';
     spinBtn.id = 'spin';
-    spinBtn.classList.add('action', 'btn');
+    spinBtn.classList.add('action', 'btn', 'hover');
     spinBtn.addEventListener('click', () => spinWheel(agents));
-    return spinBtn;
+    container.append(spinBtn);
+    return container;
 }
 
 
@@ -258,7 +261,6 @@ function spinWheel(agents){
     const innerTrack = document.querySelector('.inner-track');
 
     const winningAgent = getRandomAgent(availableAgents);
-    console.log(winningAgent);
 
     const index = agents.findIndex(agent => agent.name === winningAgent.name);
     const offset = calculateOffset(innerTrack, index, agents.length);
@@ -266,7 +268,6 @@ function spinWheel(agents){
 
     innerTrack.classList.remove('spin');
     void innerTrack.offsetWidth;
-
 
     innerTrack.classList.add('spin');
     innerTrack.addEventListener('animationend', () => {

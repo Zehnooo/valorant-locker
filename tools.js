@@ -12,7 +12,6 @@ export function getRandomAgent(agents){
 }
 
 export function target(index, width, count){
-    console.log(index, width, count);
     const totalWidth = (width * count);
     const distanceToWinner = (index * width);
     const spinDistance = 2 * totalWidth;

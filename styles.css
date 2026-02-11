@@ -67,6 +67,12 @@ template{display:none}
     }
 }
 
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+    100% { transform: translateY(0); }
+}
+
 *, html {
     box-sizing: border-box;
 }
@@ -376,11 +382,31 @@ footer div h3 {
     animation: infinite-scroll 4s cubic-bezier(0.15, 0, 0.15, 1) forwards;
 }
 
-.btn {
-    border-radius: 12px;
+#agent-select #buttons {
+    margin: 1rem auto;
     padding: 1rem;
-    margin: 0 auto;
+}
+
+.btn {
+    border-radius: 4px;
+    padding: 1rem;
     text-align: center;
+    background-color: var(--red);
+    color: var(--light);
+    font-family: "OswaldBold", "Arial Narrow", sans-serif;
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+}
+
+#spin {
+    width: 100%;
+    height: auto;
+    min-width: 250px;
+}
+
+.bounce {
+    animation: bounce 0.4s ease-in-out infinite;
 }
 
 .wait {

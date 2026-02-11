@@ -21,10 +21,8 @@ export async function cleanAgentData(){
     agentData.data.forEach(agent => {
         const { displayName, description, displayIcon, fullPortrait, isPlayableCharacter, role, abilities,  } = agent;
         let cleanAgent = { name: displayName.replace('/', ''), descrip: description, icon: displayIcon, portrait: fullPortrait, playable: isPlayableCharacter, role, abilities, isDisabled: false };
-        console.log("before",cleanAgent.abilities);
-        cleanAgent.abilities = sortAbilities(cleanAgent.abilities)
 
-        console.log("after", cleanAgent.abilities);
+        cleanAgent.abilities = sortAbilities(cleanAgent.abilities);
         agents.push(cleanAgent);
     });
     return agents;

@@ -299,6 +299,14 @@ footer div h3 {
     padding: .5rem;
 }
 
+#agent-select .card-small, #agent-select .card-large, #agent-select .card-small img, #agent-select .card-large img {
+    user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
 #agent-select .inner-track figure {
     width: 100%;
     height: 100%;

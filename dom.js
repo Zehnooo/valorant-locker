@@ -175,10 +175,14 @@ function buildFilters(data){
         heading.textContent = role.toUpperCase();
         heading.classList.add('head2');
 
+        heading.addEventListener('click', () => {
+            disableAgentGroup(roleAgents, heading.textContent.toLowerCase());
+        });
+
         const agentContainer = document.createElement('div');
+        agentContainer.id = `${role.toLowerCase()}-icons`
         roleAgents.forEach(agent => {
             agentContainer.append(buildAgentCard(agent, 'small', true));
-
         });
 
         roleContainer.append(heading);
@@ -265,7 +269,7 @@ function spinWheel(agents){
     document.documentElement.style.setProperty('--spinpx', `${offset}px`);
 
     innerTrack.classList.remove('spin');
-    void innerTrack.offsetWidth; // restart animation reliably
+    void innerTrack.offsetWidth;
 
 
     innerTrack.classList.add('spin');
@@ -352,4 +356,15 @@ function buildAgentAbilities(agent){
         abilityContainer.append(abilityCard);
     });
     return abilityContainer;
+}
+
+function disableAgentGroup(agents, group){
+const container = document.querySelector(`#${group}-icons`);
+const icons = container.querySelectorAll('figure');
+icons.forEach(icon => {
+    icon.classList.toggle('disable-agent');
+});
+agents.forEach(agent => {
+    disableAgent(agent);
+});
 }

@@ -198,6 +198,7 @@ function buildAgentCard(agent, size, clickable = false){
     imgContainer.append(img);
 
     if (clickable) {
+        imgContainer.classList.add('action');
         imgContainer.addEventListener('click', (e) => {
             e.preventDefault();
             imgContainer.classList.toggle('disable-agent');

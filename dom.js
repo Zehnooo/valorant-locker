@@ -4,7 +4,7 @@ import {calculateOffset, filterAgents, getRandomAgent, disableAgent, getAvailabl
 (() => {
     window.onload = () => {
         const main = document.querySelector('main');
-        createDefaultPage(main);
+        main.append(createDefaultPage(main));
         createFooter(main);
         updateNavLinks();
         document.body.classList.add('loaded');
@@ -12,7 +12,6 @@ import {calculateOffset, filterAgents, getRandomAgent, disableAgent, getAvailabl
 })();
 
 function createDefaultPage(main){
-    console.log('Hello World');
     const bannerContainer = document.createElement('div');
     bannerContainer.id = 'banner'
     const banner = document.createElement('video');
@@ -45,7 +44,7 @@ function createDefaultPage(main){
     description.appendChild(descriptionSpan);
     greeting.append(heading, description);
     container.append(greeting, bannerContainer);
-    main.append(container);
+    return container;
 }
 
 function createFooter(){
@@ -106,23 +105,26 @@ function getElements(selector, selectType){
 }
 
 function clearMain(){
-    const main = getElements('main', 'single');
-    main.textContent = '';
+    const main = document.querySelector('main');
+    console.log(main);
+    main.innerHTML = "";
     return main;
 }
 
 function updateMain(page, agent = null){
     page = String(page).replace(" ", "").toLowerCase();
-        const main = clearMain();
+    const main = clearMain();
         switch(page){
             case 'home':
-                createDefaultPage(main);
+                const homePage = createDefaultPage(main);
+                main.append(homePage);
                 break;
             case 'agentselect':
                 buildAgentSelect(main);
                 break;
             case 'showagent':
-                showAgentInfo(main, agent);
+                const agentPage = showAgentInfo(agent);
+                main.append(agentPage);
                 break;
             default:
                 showPageError(main);
@@ -148,7 +150,7 @@ function buildAgentSelect(main){
         const btn = buildSpinButton(data);
         const filters = buildFilters(data);
         agentSelect.append(wheel, btn, filters);
-        main.append(agentSelect)
+        main.append(agentSelect);
     });
 }
 
@@ -285,7 +287,7 @@ function showAgentInfo(main, agent){
     const abilities = buildAgentAbilities(agent);
 
     container.append(header, abilities);
-    main.append(container);
+    return container;
 }
 
 function buildAgentHeader(agent){

@@ -1,4 +1,4 @@
-import { sortAbilities } from './tools.js'
+import { sortAbilities, sortWeapons } from './tools.js'
 
 async function fetchData(apiLink) {
     try {
@@ -34,6 +34,7 @@ export async function getWeapons(){
             allWeapons.push({icon: weapon.displayIcon, name: weapon.displayName, skins: []});
         });
     });
+    allWeapons = sortWeapons(allWeapons);
     return await getSkins(allWeapons);
 }
 

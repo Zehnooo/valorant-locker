@@ -39,7 +39,7 @@ export function getAvailableAgents(agents){
     });
 }
 
-export function sortAbilities(abilites){
+export function sortAbilities(abilities){
     const abilityOrder = ['Grenade', 'Ability1','Ability2','Ultimate','Passive'];
 
     const orderMap = abilityOrder.reduce((acc, slot, index) => {
@@ -47,8 +47,21 @@ export function sortAbilities(abilites){
         return acc;
     }, {});
 
-        return abilites.sort((a, b) => {
+        return abilities.sort((a, b) => {
             return orderMap[a.slot] - orderMap[b.slot];
         });
+}
 
+export function sortWeapons(weapons){
+    console.log(weapons);
+    const weaponOrder = ['Classic', 'Shorty', 'Frenzy', 'Ghost', 'Bandit', 'Sheriff', 'Stinger', 'Spectre', 'Bucky', 'Judge', 'Bulldog', 'Guardian', 'Phantom', 'Vandal', 'Marshal', 'Outlaw', 'Operator', 'Ares', 'Odin'];
+
+    const weaponMap = weaponOrder.reduce((acc, name, index) => {
+        acc[name] = index;
+        return acc;
+    }, {});
+
+    return weapons.sort((a, b) => {
+        return weaponMap[a.name] - weaponMap[b.name]
+    });
 }

@@ -7,8 +7,7 @@ import { calculateOffset, filterAgents, getRandomAgent, disableAgent, getAvailab
         main.append(createDefaultPage());
         document.body.append(createFooter());
         updateNavLinks();
-        document.body.classList.add('loaded');
-
+        document.body.classList.add('loaded', 'cursor');
     }
 })();
 
@@ -265,6 +264,8 @@ function spinWheel(agents){
     btn.disabled = true;
     btn.textContent = 'Spinning...';
     btn.classList.add('disable-cursor', 'disable-button');
+    document.body.classList.add('wait');
+    document.body.classList.remove('cursor');
 
     const innerTrack = document.querySelector('.inner-track');
 
@@ -280,6 +281,8 @@ function spinWheel(agents){
     innerTrack.classList.add('spin');
     innerTrack.addEventListener('animationend', () => {
         innerTrack.classList.remove('spin');
+        document.body.classList.remove('wait');
+        document.body.classList.add('cursor');
         btn.disabled = false;
         btn.classList.remove('disable-cursor', 'disable-button');
         updateMain('showagent', winningAgent);
@@ -388,12 +391,8 @@ function buildSkinPage(){
                 const img = document.createElement('img');
                 img.src = skin.icon;
 
-                const name = document.createElement('h2');
-                name.textContent = skin.name;
-                name.classList.add('head2');
-
                 imgContainer.append(img);
-                skinContainer.append(name, imgContainer);
+                skinContainer.append(imgContainer);
                 container.append(skinContainer)
         });
     });

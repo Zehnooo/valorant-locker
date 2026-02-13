@@ -54,7 +54,7 @@ export function sortAbilities(abilities){
 
 export function sortWeapons(weapons){
     console.log(weapons);
-    const weaponOrder = ['Classic', 'Shorty', 'Frenzy', 'Ghost', 'Bandit', 'Sheriff', 'Stinger', 'Spectre', 'Bucky', 'Judge', 'Bulldog', 'Guardian', 'Phantom', 'Vandal', 'Marshal', 'Outlaw', 'Operator', 'Ares', 'Odin'];
+    const weaponOrder = ['Classic', 'Shorty', 'Frenzy', 'Ghost', 'Bandit', 'Sheriff', 'Stinger', 'Spectre', 'Bucky', 'Judge', 'Bulldog', 'Guardian', 'Phantom', 'Vandal', 'Marshal', 'Outlaw', 'Operator', 'Ares', 'Odin', 'Melee'];
 
     const weaponMap = weaponOrder.reduce((acc, name, index) => {
         acc[name] = index;

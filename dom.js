@@ -1,17 +1,18 @@
-import { cleanAgentData } from './valorantapi.js';
-import {calculateOffset, filterAgents, getRandomAgent, disableAgent, getAvailableAgents} from './tools.js';
+import { getAgents, getWeapons } from './valorantapi.js';
+import { calculateOffset, filterAgents, getRandomAgent, disableAgent, getAvailableAgents } from './tools.js';
 
 (() => {
     window.onload = () => {
         const main = document.querySelector('main');
-        main.append(createDefaultPage(main));
-        createFooter(main);
+        main.append(createDefaultPage());
+        document.body.append(createFooter());
         updateNavLinks();
         document.body.classList.add('loaded');
+
     }
 })();
 
-function createDefaultPage(main){
+function createDefaultPage(){
     const bannerContainer = document.createElement('div');
     bannerContainer.id = 'banner'
     const banner = document.createElement('video');
@@ -72,7 +73,7 @@ function createFooter(){
     githubLink.appendChild(imgContainer);
     container.append(disclaimer, githubLink);
     footer.append(container);
-    document.body.appendChild(footer);
+    return footer;
 }
 
 function updateNavLinks(){
@@ -106,7 +107,6 @@ function getElements(selector, selectType){
 
 function clearMain(){
     const main = document.querySelector('main');
-    console.log(main);
     main.innerHTML = "";
     return main;
 }
@@ -114,6 +114,7 @@ function clearMain(){
 function updateMain(page, agent = null){
     page = String(page).replace(" ", "").toLowerCase();
     const main = clearMain();
+
         switch(page){
             case 'home':
                 const homePage = createDefaultPage(main);
@@ -126,10 +127,15 @@ function updateMain(page, agent = null){
                 const agentPage = showAgentInfo(agent);
                 main.append(agentPage);
                 break;
+            case 'skins':
+
+                main.append(buildSkinPage());
+                break;
             default:
                 showPageError(main);
                 break;
         }
+
 }
 
 function showPageError(main) {
@@ -143,7 +149,7 @@ function showPageError(main) {
 }
 
 function buildAgentSelect(main){
-    getAgents().then(data => {
+    getAgentData().then(data => {
         const agentSelect = document.createElement('div');
         agentSelect.id = 'agent-select';
         const wheel = buildAgentWheel(data);
@@ -154,8 +160,8 @@ function buildAgentSelect(main){
     });
 }
 
-async function getAgents(){
-    return await cleanAgentData();
+async function getAgentData(){
+    return await getAgents();
 }
 
 function buildFilters(data){
@@ -175,6 +181,7 @@ function buildFilters(data){
 
         heading.addEventListener('click', () => {
             disableAgentGroup(roleAgents, heading.textContent.toLowerCase());
+
         });
 
         const agentContainer = document.createElement('div');
@@ -237,6 +244,7 @@ function buildAgentWheel(agents){
     container.append(track);
     return container;
 }
+
 function buildSpinButton(agents){
     const container = document.createElement('div');
     container.id = 'buttons'
@@ -250,15 +258,13 @@ function buildSpinButton(agents){
     return container;
 }
 
-
 function spinWheel(agents){
     const availableAgents = getAvailableAgents(agents);
-    console.log(availableAgents);
 
     const btn = document.querySelector('#spin');
     btn.disabled = true;
     btn.textContent = 'Spinning...';
-    btn.classList.add('disable-cursor');
+    btn.classList.add('disable-cursor', 'disable-button');
 
     const innerTrack = document.querySelector('.inner-track');
 
@@ -275,12 +281,12 @@ function spinWheel(agents){
     innerTrack.addEventListener('animationend', () => {
         innerTrack.classList.remove('spin');
         btn.disabled = false;
+        btn.classList.remove('disable-cursor', 'disable-button');
         updateMain('showagent', winningAgent);
         });
 }
 
-function showAgentInfo(main, agent){
-
+function showAgentInfo(agent){
     const container = document.createElement('div');
     container.id = 'agent-page';
     const header = buildAgentHeader(agent);
@@ -291,7 +297,6 @@ function showAgentInfo(main, agent){
 }
 
 function buildAgentHeader(agent){
-    console.log(agent);
     const headContainer = document.createElement('div');
     headContainer.id = 'agent-head';
 
@@ -367,4 +372,28 @@ icons.forEach(icon => {
 agents.forEach(agent => {
     disableAgent(agent);
 });
+}
+
+function buildSkinPage(){
+    const container = document.createElement('div');
+    getWeapons().then( data => {
+        console.log(data);
+        data.forEach(skin => {
+            console.log(skin);
+
+                const skinContainer = document.createElement('div');
+
+                const img = document.createElement('img');
+                img.src = skin.icon;
+
+                const name = document.createElement('h2');
+                name.textContent = skin.name;
+
+                skinContainer.append(name, img);
+                container.append(skinContainer)
+
+        });
+
+    });
+    return container;
 }

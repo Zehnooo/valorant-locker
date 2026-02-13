@@ -376,24 +376,26 @@ agents.forEach(agent => {
 
 function buildSkinPage(){
     const container = document.createElement('div');
+    container.id = 'Skins';
     getWeapons().then( data => {
-        console.log(data);
         data.forEach(skin => {
-            console.log(skin);
-
                 const skinContainer = document.createElement('div');
+                skinContainer.classList.add('skin');
+
+                const imgContainer = document.createElement('figure');
+
 
                 const img = document.createElement('img');
                 img.src = skin.icon;
 
                 const name = document.createElement('h2');
                 name.textContent = skin.name;
+                name.classList.add('head2');
 
-                skinContainer.append(name, img);
+                imgContainer.append(img);
+                skinContainer.append(name, imgContainer);
                 container.append(skinContainer)
-
         });
-
     });
     return container;
 }

@@ -521,5 +521,37 @@ max-width: 75px;
     line-height: 1.5;
 }
 
+#Skins {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 0 auto;
+    place-items: center;
+}
 
+#Skins .skin {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--grey);
+    margin: 1rem auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.1);
+}
 
+#Skins .skin figure {
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+#Skins .skin img {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
